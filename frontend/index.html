@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bicicletas Compartilhadas de Brasília</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bicicletas Compartilhadas de Brasília</h1>
+
+        <h2>Passeios de Bicicleta</h2>
+        <ul id="rideList" class="list-group"> <!-- API MOSTRARA AQUI?? -->
+            <!-- A lista de passeios de bicicleta será exibida aqui -->
+        </ul>
+
+        <h2>Estações</h2>
+        <ul id="stationList" class="list-group">
+            <!-- A lista de estações será exibida aqui -->   
+            <!-- Importo DFRIDES? COMO?? -->   
+        </ul>
+
+        <h2>Editar Passeio de Bicicleta</h2>
+        <form id="editRideForm">
+            <div class="form-group"> <!--ID do passeio não será mostrada, só teremos dois campos? -->
+                <input type="text" id="rideId" class="form-control" placeholder="ID do Passeio" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="rideNome" class="form-control" placeholder="Nome Usuário"  required>
+            </div>
+            <div class="form-group">
+                <input type="date" id="rideData" class="form-control" placeholder="Data Passeio" required>
+            </div>
+            <button type="button" onclick="editRide()" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>
