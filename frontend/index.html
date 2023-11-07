@@ -10,10 +10,18 @@
     <div class="container">
         <h1>Bicicletas Compartilhadas de Brasília</h1>
 
-        <h2>Passeios de Bicicleta</h2>
-        <ul id="rideList" class="list-group"> <!-- API MOSTRARA AQUI?? -->
-            <!-- A lista de passeios de bicicleta será exibida aqui -->
-        </ul>
+        <table id="rideTable" class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome Usuário</th>
+                    <th>Data Passeio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- The table rows will be dynamically populated here -->
+            </tbody>
+        </table>
 
         <h2>Estações</h2>
         <ul id="stationList" class="list-group">
@@ -35,7 +43,7 @@
             <button type="button" onclick="editRide()" class="btn btn-primary">Salvar</button>
         </form>
     </div>
-    
+    <script type="module" src="index.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>

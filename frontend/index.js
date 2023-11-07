@@ -1,18 +1,32 @@
-const ridesAPI = '/rides'; // Endpoint da API para manipular os passeios
+const ridesAPI = 'http://localhost:8000/rides'; // Endpoint da API para manipular os passeios
+
+document.addEventListener("DOMContentLoaded", function() {
+    listRides()
+})
 
 // Função para listar passeios de bicicleta
 function listRides() {
     fetch(ridesAPI)
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             // Mostra os passeios no subtitulo "passeios de bicicletas" no HTML
-            const ridesList = document.getElementById('rideList');
-            ridesList.innerHTML = ''; // Limpa a lista
+            const tableBody = document.getElementById('rideTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear the table body
 
             data.forEach(ride => {
-                const listItem = document.createElement('li');
-                listItem.textContent = ride.name;
-                ridesList.appendChild(listItem);
+                // Create a new row for each ride
+                const row = tableBody.insertRow(tableBody.rows.length);
+
+                // Create cells and populate them with data
+                const idCell = row.insertCell(0);
+                idCell.textContent = ride.rowid;
+
+                const nomeCell = row.insertCell(1);
+                nomeCell.textContent = ride.user_gender;
+
+                const dataCell = row.insertCell(2);
+                dataCell.textContent = ride.ride_date;
             });
         })
         .catch(error => console.error('Erro ao obter passeios de bicicleta:', error));
