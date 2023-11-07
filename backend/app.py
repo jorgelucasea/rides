@@ -5,8 +5,17 @@ import sqlite3
 from database import database
 from handlers import stations, rides
 from typing import List
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace "*" with your specific origins if needed
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #importando a tabela csv para o pandas
 #criando/conectando com o banco de dados bikes
