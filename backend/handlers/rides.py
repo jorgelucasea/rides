@@ -13,7 +13,7 @@ class RideData(BaseModel):
     station_start: str 
     station_end: str 
     ride_duration: float 
-    ride_late: bool 
+    ride_late: bool
 
 class RideDataUpdate(BaseModel):
     user_gender: str | None
@@ -34,7 +34,13 @@ def get_all_rides(conn: Connection):
 
     return data
 
-def create_rides(conn: Connection, ride: RideData):
+def get_ride_by_ID(conn: Connection, id_ride: int):
+    cursor = conn.cursor()
+    cursor.execute("SELECT rowid, user_gender, user_birthdate, user_residence, ride_date, time_start, time_end, station_start, station_end, ride_duration, ride_late FROM rides WHERE rowid = ?", (id_ride,))
+    data = cursor.fetchone()
+    return data
+
+def create_rides(conn: Connection, ride: RideDataUpdate):
     cursor = conn.cursor()
     
     cursor.execute("INSERT INTO rides (user_gender, user_birthdate, user_residence, ride_date, time_start, time_end, station_start, station_end, ride_duration, ride_late) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",

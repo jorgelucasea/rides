@@ -9,5 +9,5 @@ def newDB(conn: Connection):
     df_rides = df_rides.head(400)
     df_station = pd.read_csv(filename2, index_col=0)
 
-    df_rides.to_sql(name='rides',if_exists="replace", con=conn, index=True, index_label="id")
-    df_station.to_sql(name='stations',if_exists="replace", con=conn, index=True, index_label="id")
+    df_rides.to_sql(name='rides',if_exists="replace", con=conn)
+    df_station.to_sql(name='stations',if_exists="replace", con=conn)

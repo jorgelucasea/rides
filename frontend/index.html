@@ -5,23 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bicicletas Compartilhadas de Brasília</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #table-wrapper {
+        position:relative;
+        }
+        #table-scroll {
+        height:550px;
+        overflow:auto;  
+        margin-top:20px;
+        margin-bottom: 20px;
+        }
+        #table-wrapper table {
+        width:100%;
+
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Bicicletas Compartilhadas de Brasília</h1>
+        <div id="table-wrapper">
+            <div id="table-scroll">
+                <table id="rideTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ESTAÇÃO INICIAL</th>
+                            <th>ESTAÇÃO FINAL</th>
+                            <th>DIA DA VIAGEM</th>
+                            <th>HORARIO DE INICIO</th>
+                            <th>HORARIO DE FIM</th>
+        
+                        </tr>
+                    </thead>
+                    <tbody id="rideTableBody">
+                        <!-- The table rows will be dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <button id="addRideButton" class="btn btn-primary">Adicionar passeio</button>
 
-        <table id="rideTable" class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome Usuário</th>
-                    <th>Data Passeio</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- The table rows will be dynamically populated here -->
-            </tbody>
-        </table>
+        <div id="rideForm" style="display: none;">
+            <h2>Adicionar/Editar Passeio</h2>
+            <input type="text" id="rideId" style="display: none;">
+            <input type="text" id="user_gender" style="display: none;">
+            <input type="text" id="user_birthdate" style="display: none;">
+            <input type="text" id="user_residence" style="display: none;">
+            <input type="text" id="ride_duration" style="display: none;">
+            <input type="text" id="ride_late" style="display: none;">
+            <div class="form-group">
+                <input type="text" id="ride_station_start" class="form-control" placeholder="Estação de ínicio" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="ride_station_end" class="form-control" placeholder="Estação final" required>
+            </div>
+            <div class="form-group">
+                <input type="date" id="rideDate" class="form-control" placeholder="Date" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="ride_start_time" class="form-control" placeholder="Horário de fim" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="ride_end_time" class="form-control" placeholder="Horário de ínicio" required>
+            </div>
+            <button id="saveRideButton" class="btn btn-primary">Save</button>
+        </div>
 
         <h2>Estações</h2>
         <ul id="stationList" class="list-group">

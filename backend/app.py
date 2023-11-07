@@ -52,8 +52,24 @@ async def get_rides():
     rides_model = [rides.RideData(rowid=row[0],user_gender=row[1], user_birthdate=row[2], user_residence=row[3], ride_date=row[4], time_start=row[5], time_end=row[6], station_start=row[7], station_end=row[8], ride_duration=row[9], ride_late=row[10]) for row in data]
     return rides_model
 
+@app.get("/rides/{ride_id}", response_model=rides.RideData)
+async def get_ride_by_ID(ride_id: int):
+    ride_by_id = rides.get_ride_by_ID(conn, ride_id)
+    ride_model = rides.RideData(rowid=ride_by_id[0],
+            user_gender=ride_by_id[1],
+            user_birthdate=ride_by_id[2],
+            user_residence=ride_by_id[3],
+            ride_date=ride_by_id[4],
+            time_start=ride_by_id[5],
+            time_end=ride_by_id[6],
+            station_start=ride_by_id[7],
+            station_end=ride_by_id[8],
+            ride_duration=ride_by_id[9],
+            ride_late=ride_by_id[10])
+    return ride_model
+
 @app.post("/rides")
-async def create_ride(ride: rides.RideData):
+async def create_ride(ride: rides.RideDataUpdate):
     created_ride = rides.create_rides(conn, ride)
     return created_ride
 
