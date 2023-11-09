@@ -49,12 +49,25 @@
 
         <div id="rideForm" style="display: none;">
             <h2>Adicionar/Editar Passeio</h2>
-            <input type="text" id="rideId" style="display: none;">
-            <input type="text" id="user_gender" style="display: none;">
-            <input type="text" id="user_birthdate" style="display: none;">
-            <input type="text" id="user_residence" style="display: none;">
-            <input type="text" id="ride_duration" style="display: none;">
-            <input type="text" id="ride_late" style="display: none;">
+
+            <div class="form-group">
+                <input type="text" id="rideId" style="display: none;"/>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Digite seu genêro" id="user_gender">
+            </div>          
+            <div class="form-group">
+                <input type="text" placeholder="Digite sua data de nascimento" id="user_birthdate">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Digite o estado que você mora" id="user_residence">
+            </div>
+            <!-- <div class="form-group">
+                <input type="text" id="ride_duration" style="display: none;">
+            </div>
+            <div class="form-group">
+                <input type="text" id="ride_late" placeholder="">
+            </div>         -->
             <div class="form-group">
                 <input type="text" id="ride_station_start" class="form-control" placeholder="Estação de ínicio" required>
             </div>
@@ -74,25 +87,51 @@
         </div>
 
         <h2>Estações</h2>
-        <ul id="stationList" class="list-group">
-            <!-- A lista de estações será exibida aqui -->   
-            <!-- Importo DFRIDES? COMO?? -->   
-        </ul>
+        <div id="table-wrapper">
+            <div id="table-scroll">
+                <table id="stationTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>NOME DA ESTAÇÃO</th>
+                            <th>NÚMERO DA ESTAÇÃO</th>
+                            <th>LATITUDE</th>
+                            <th>LONGITUTE</th>
+        
+                        </tr>
+                    </thead>
+                    <tbody id="stationTableBody">
+                        <!-- The table rows will be dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-        <h2>Editar Passeio de Bicicleta</h2>
-        <form id="editRideForm">
-            <div class="form-group"> <!--ID do passeio não será mostrada, só teremos dois campos? -->
-                <input type="text" id="rideId" class="form-control" placeholder="ID do Passeio" required>
+        <div id="stationForm" style="display: none;">
+            <h2>Adicionar/Editar Estações</h2>
+    
+            <div class="form-group">
+                <input type="text" id="stationID" style="display: none;"/>
             </div>
             <div class="form-group">
-                <input type="text" id="rideNome" class="form-control" placeholder="Nome Usuário"  required>
+                <input type="text" placeholder="Digite o nome da estação" id="station">
+            </div>          
+            <div class="form-group">
+                <input type="text" placeholder="Digite o número da estação" id="station_number">
             </div>
             <div class="form-group">
-                <input type="date" id="rideData" class="form-control" placeholder="Data Passeio" required>
+                <input type="text" placeholder="Digite a latitude" id="lat">
+            </div> 
+            <div class="form-group">
+                <input type="text" id="long" class="form-control" placeholder="Digite a longitude" required>
             </div>
-            <button type="button" onclick="editRide()" class="btn btn-primary">Salvar</button>
-        </form>
+            <button id="saveStationButton" class="btn btn-primary">Save</button>
+        </div>
+
+        <button id="addStationButton" class="btn btn-primary">Adicionar estação</button>
+
     </div>
+
+    
     <script type="module" src="index.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
