@@ -14,8 +14,8 @@ btnEdit.addEventListener("click", function() {
 })
 
 const btn = document.getElementById("saveStationButton")
-btnEdit.addEventListener("click", function() {
-        listStations()
+btn.addEventListener("click", function() {
+        addStation()
 })
 
 // Função para listar passeios de bicicleta
@@ -250,8 +250,9 @@ function addStation() {
     const stationNumber = document.getElementById('station_number').value;
     const lat = document.getElementById('lat').value;
     const long = document.getElementById('long').value;
+    const stationName = document.getElementById('station_name').value
     //pensei em adicionar opções de estação pra ser selecionada, mas acho que não tem necessidade
-
+    console.log("button clicked")
     // Enviar dados ao backend
     fetch(stationAPI, {
         method: 'POST',
@@ -262,6 +263,7 @@ function addStation() {
             {
                 station: station,
                 station_number: stationNumber,
+                station_name: stationName,
                 lat: lat,
                 lon: long,
             }
