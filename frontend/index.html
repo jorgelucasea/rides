@@ -25,7 +25,7 @@
 <body>
     <div class="container">
         <h1>Bicicletas Compartilhadas de Brasília</h1>
-        
+
         <!-- Tabela de Passeios -->
         <div class="table-wrapper">
             <div class="table-scroll">
@@ -47,7 +47,7 @@
                 </table>
             </div>
         </div>
-        
+
         <button id="addRideButton" class="btn btn-primary">Adicionar passeio</button>
 
         <!-- Modal para Adicionar/Editar Passeio -->
@@ -67,10 +67,10 @@
                             <input type="text" id="user_gender" class="form-control" placeholder="Digite seu gênero"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="ride_station_start" class="form-control" placeholder="Digite o nome da estação inicial" id="ride_station_start" required>
+                            <input type="text" id="ride_station_start" class="form-control" placeholder="Digite o nome da estação inicial" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="ride_station_end" class="form-control" placeholder="Digite o nome da estação final" id="ride_station_end" required>
+                            <input type="text" id="ride_station_end" class="form-control" placeholder="Digite o nome da estação final" required>
                         </div>
                         <div class="form-group">
                             <input type="date" id="rideDate" class="form-control" placeholder="Data" required>
@@ -100,7 +100,7 @@
                             <th>NOME DA ESTAÇÃO</th>
                             <th>NÚMERO DA ESTAÇÃO</th>
                             <th>LATITUDE</th>
-                            <th>LONGITUTE</th>
+                            <th>LONGITUDE</th>
                             <th>AÇÕES</th>
                         </tr>
                     </thead>
@@ -114,38 +114,38 @@
         <button id="addStationButton" class="btn btn-primary">Adicionar estação</button>
 
         <!-- Modal para Adicionar/Editar Estações -->
-<div class="modal" id="stationModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Adicionar/Editar Estações</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <!-- Conteúdo do modal para Adicionar/Editar Estações -->
-                <div class="form-group">
-                    <input type="text" id="stationID" style="display: none;"/>
+        <div class="modal" id="stationModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Adicionar/Editar Estações</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Conteúdo do modal para Adicionar/Editar Estações -->
+                        <div class="form-group">
+                            <input type="text" id="stationID" style="display: none;"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Digite o nome da estação" id="station">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Digite o número da estação" id="station_number">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Digite a latitude" id="lat">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="long" class="form-control" placeholder="Digite a longitude" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="saveStationButton">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Digite o nome da estação" id="station">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Digite o número da estação" id="station_number">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Digite a latitude" id="lat">
-                </div>
-                <div class="form-group">
-                    <input type="text" id="long" class="form-control" placeholder="Digite a longitude" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="saveStationButton">Salvar</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
         </div>
-    </div>
-</div>
 
         <script type="module" src="index.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

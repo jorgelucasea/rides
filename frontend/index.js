@@ -1,21 +1,21 @@
 const ridesAPI = 'http://localhost:8000/rides';
 const stationAPI = 'http://localhost:8000/stations';
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     listRides();
     listStations();
     document.getElementById('addRideButton').addEventListener('click', showAddRideForm);
     document.getElementById('addStationButton').addEventListener('click', showAddStationForm);
-})
 
-const btnEdit = document.getElementById("saveRideButton");
-btnEdit.addEventListener("click", function() {
-    editRide();
-});
+    const btnEdit = document.getElementById("saveRideButton");
+    btnEdit.addEventListener("click", function () {
+        editRide();
+    });
 
-const btn = document.getElementById("saveStationButton");
-btn.addEventListener("click", function() {
-    addStation();
+    const btn = document.getElementById("saveStationButton");
+    btn.addEventListener("click", function () {
+        addStation();
+    });
 });
 
 function listRides() {
@@ -49,7 +49,7 @@ function listRides() {
 }
 
 function showEditRideForm(rideId) {
-    const rideForm = document.getElementById('rideForm');
+    const rideForm = document.getElementById('rideModal');
     rideForm.style.display = 'block';
 
     fetch(`${ridesAPI}/${rideId}`)
@@ -67,7 +67,7 @@ function showEditRideForm(rideId) {
 }
 
 function showAddRideForm() {
-    const rideForm = document.getElementById('rideForm');
+    const rideForm = document.getElementById('rideModal');
     rideForm.style.display = 'block';
     resetRideForm();
 }
@@ -104,11 +104,11 @@ function addRide() {
             time_end: newEndTime
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        listRides();
-    })
-    .catch(error => console.error('Erro ao adicionar passeio de bicicleta:', error));
+        .then(response => response.json())
+        .then(data => {
+            listRides();
+        })
+        .catch(error => console.error('Erro ao adicionar passeio de bicicleta:', error));
 }
 
 function editRide() {
@@ -134,11 +134,11 @@ function editRide() {
             time_end: newEndTime
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        listRides();
-    })
-    .catch(error => console.error('Erro ao editar passeio de bicicleta:', error));
+        .then(response => response.json())
+        .then(data => {
+            listRides();
+        })
+        .catch(error => console.error('Erro ao editar passeio de bicicleta:', error));
 }
 
 function listStations() {
@@ -170,12 +170,12 @@ function listStations() {
 }
 
 function showForm() {
-    const rideForm = document.getElementById('stationForm');
+    const rideForm = document.getElementById('stationModal');
     rideForm.style.display = 'block';
 }
 
 function showAddStationForm() {
-    const rideForm = document.getElementById('stationForm');
+    const rideForm = document.getElementById('stationModal');
     rideForm.style.display = 'block';
     const btn = document.getElementById("addStationButton");
     btn.style.display = "none";
@@ -199,9 +199,9 @@ function addStation() {
             lon: long
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        listStations();
-    })
-    .catch(error => console.error('Erro ao adicionar estação:', error));
+        .then(response => response.json())
+        .then(data => {
+            listStations();
+        })
+        .catch(error => console.error('Erro ao adicionar estação:', error));
 }
