@@ -10,20 +10,25 @@ document.addEventListener("DOMContentLoaded", function () {
 // Pego o botão para adicionar um evento click que quando chamado edit algum ride.
 let station_id;
 let ISEDITING = true;
+let ride_id;
+
+function fecharModalStation() {
+    const fecharModalButton = document.querySelectorAll("#fecharModal");
+    console.log(fecharModalButton);
+    fecharModalButton.forEach(element => {
+        element.addEventListener("click", () => closeModal("stationModal"))
+    })
+}
+
+function fecharModalRides() {
+    const fecharModalButton = document.querySelectorAll("#fecharModal");
+    console.log(fecharModalButton);
+    fecharModalButton.forEach(element => {
+        element.addEventListener("click", () => closeModal("rideModal"))
+    })
+}
 
 // Função para listar passeios de bicicleta
-
-    const btnEdit = document.getElementById("saveRideButton");
-    btnEdit.addEventListener("click", function () {
-        editRide();
-    });
-
-    const btn = document.getElementById("saveStationButton");
-    btn.addEventListener("click", function () {
-        addStation();
-    });
-});
-
 function listRides() {
     fetch(ridesAPI)
         .then(response => response.json())
@@ -59,6 +64,7 @@ function listRides() {
 function showEditRideForm(rideId) {
     const rideForm = document.getElementById('rideModal');
     rideForm.style.display = 'block';
+    ride_id = rideId;
 
     fetch(`${ridesAPI}/${rideId}`)
         .then(response => response.json())
@@ -79,6 +85,7 @@ function showAddRideForm() {
     rideForm.style.display = 'block';
     resetRideForm();
     ISEDITING = false
+    fecharModalRides()
 }
 
 function resetRideForm() {
@@ -109,6 +116,8 @@ function addRide() {
     const newDate = document.getElementById('rideDate').value;
     const newStartTime = document.getElementById('ride_start_time').value;
     const newEndTime = document.getElementById('ride_end_time').value;
+    const userBirthdate = document.getElementById('user_birthdate').value;
+    const userResidence = document.getElementById('user_residence').value;
     let j = {
         user_gender: gender,
         user_birthdate: userBirthdate,
@@ -118,8 +127,8 @@ function addRide() {
         time_end: newEndTime,
         station_start: newInitialStation,
         station_end:newEndStation,
-        ride_duration: 10.2,
-        ride_late: false
+        ride_duration: "10.2",
+        ride_late: "false"
     }
     console.log(j)
     fetch(ridesAPI, {
@@ -129,45 +138,56 @@ function addRide() {
         },
         body: JSON.stringify({
             user_gender: gender,
-            station_start: newInitialStation,
-            station_end: newEndStation,
+            user_birthdate: userBirthdate,
+            user_residence: userResidence,
             ride_date: newDate,
             time_start: newStartTime,
-            time_end: newEndTime
+            time_end: newEndTime,
+            station_start: newInitialStation,
+            station_end:newEndStation,
+            ride_duration: "10.2",
+            ride_late: "false"
         })
     })
         .then(response => response.json())
         .then(data => {
+            closeModal("rideModal")
             listRides();
         })
         .catch(error => console.error('Erro ao adicionar passeio de bicicleta:', error));
 }
 
 function editRide() {
-    const userId = document.getElementById('rideId').value;
     const gender = document.getElementById('user_gender').value;
     const newInitialStation = document.getElementById('ride_station_start').value;
     const newEndStation = document.getElementById('ride_station_end').value;
     const newDate = document.getElementById('rideDate').value;
     const newStartTime = document.getElementById('ride_start_time').value;
     const newEndTime = document.getElementById('ride_end_time').value;
+    const userBirthdate = document.getElementById('user_birthdate').value;
+    const userResidence = document.getElementById('user_residence').value;
 
-    fetch(`${ridesAPI}/${userId}`, {
+    fetch(`${ridesAPI}/${ride_id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             user_gender: gender,
-            station_start: newInitialStation,
-            station_end: newEndStation,
+            user_birthdate: userBirthdate,
+            user_residence: userResidence,
             ride_date: newDate,
             time_start: newStartTime,
-            time_end: newEndTime
+            time_end: newEndTime,
+            station_start: newInitialStation,
+            station_end:newEndStation,
+            ride_duration: "10.2",
+            ride_late: "false"
         })
     })
         .then(response => response.json())
         .then(data => {
+            closeModal("rideModal")
             listRides();
         })
         .catch(error => console.error('Erro ao editar passeio de bicicleta:', error));
@@ -212,8 +232,6 @@ function showForm(station_id_param) {
 
 function listEditStation(station_id) {
     ISEDITING = true
-    const b = document.getElementById("addStationButton")
-    b.style.display = 'none'
     fetch(`${stationAPI}/${station_id}`)
         .then(res => res.json())
         .then(data => {
@@ -257,8 +275,14 @@ function editStation() {
                 lon: long,
             
         })
-    }).then(res => console.log(res)).then(() => listStations())
+    }).then(res => console.log(res)).then(() => listStations()).then(() => closeModal("stationModal"))
 }
+
+const btnRide = document.getElementById("saveRideButton")
+btnRide.addEventListener("click", function() {
+    if (ISEDITING) editRide()
+    else addRide()
+})
 
 const btn = document.getElementById("saveStationButton")
 btn.addEventListener("click", function() {
@@ -270,8 +294,8 @@ function showAddStationForm() {
     const rideForm = document.getElementById('stationModal');
     rideForm.style.display = 'block';
     const btn = document.getElementById("addStationButton");
-    btn.style.display = 'none'
     ISEDITING = false;
+    fecharModalStation()
 }
 
 function addStation() {
@@ -280,6 +304,8 @@ function addStation() {
     const stationNumber = document.getElementById('station_number').value;
     const lat = document.getElementById('lat').value;
     const long = document.getElementById('long').value;
+    const stationName = document.getElementById('station_name').value
+
 
     fetch(stationAPI, {
         method: 'POST',
@@ -288,6 +314,7 @@ function addStation() {
         },
         body: JSON.stringify({
             station: station,
+            station_name: stationName,
             station_number: stationNumber,
             lat: lat,
             lon: long
@@ -295,8 +322,23 @@ function addStation() {
     })
         .then(response => response.json())
         .then(data => {
+            closeModal("stationModal")
             listStations();
         })
         .catch(error => console.error('Erro ao adicionar estação:', error));
     // Enviar dados ao backend
+}
+
+function resetform() {
+    document.getElementById('station').value = ""
+    document.getElementById('station_number').value = ""
+    document.getElementById('lat').value = ""
+    document.getElementById('long').value = ""
+    document.getElementById('station_name').value = "";
+}
+
+function closeModal(modalId) {
+    $(`#${modalId}`).hide();
+    resetform()
+    resetRideForm()
 }

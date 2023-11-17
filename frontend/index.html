@@ -56,7 +56,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Adicionar/Editar Passeio</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close" id="fecharModal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <!-- Conteúdo do modal para Adicionar/Editar Passeio -->
@@ -67,13 +67,23 @@
                             <input type="text" id="user_gender" class="form-control" placeholder="Digite seu gênero"/>
                         </div>
                         <div class="form-group">
+                            <input type="text" id="user_birthdate" class="form-control" placeholder="Digite a sua data de nascimento" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="user_residence" class="form-control" placeholder="Digite seu estado de origem" required>
+                        </div>
+                        <div class="form-group">
                             <input type="text" id="ride_station_start" class="form-control" placeholder="Digite o nome da estação inicial" required>
                         </div>
                         <div class="form-group">
                             <input type="text" id="ride_station_end" class="form-control" placeholder="Digite o nome da estação final" required>
                         </div>
+                        
                         <div class="form-group">
-                            <input type="date" id="rideDate" class="form-control" placeholder="Data" required>
+                            <input type="text" id="rideDate" class="form-control" placeholder="Data do passeio" required>
+                        </div>
+                        <div class="form-group" style="display: none;">
+                            <input type="text" id="ride_late" class="form-control" placeholder="Data do passeio" required>
                         </div>
                         <div class="form-group">
                             <input type="text" id="ride_start_time" class="form-control" placeholder="Horário de início" required>
@@ -84,7 +94,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="saveRideButton">Salvar</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-secondary" id="fecharModal">Fechar</button>
                     </div>
                 </div>
             </div>
@@ -119,7 +129,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Adicionar/Editar Estações</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close" id="fecharModal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <!-- Conteúdo do modal para Adicionar/Editar Estações -->
@@ -127,10 +137,13 @@
                             <input type="text" id="stationID" style="display: none;"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Digite o nome da estação" id="station">
+                            <input type="text" class="form-control" placeholder="Digite o apelido da estação" id="station">
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Digite o número da estação" id="station_number">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="station_name" placeholder="Digite o nome da estação"/>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Digite a latitude" id="lat">
@@ -141,15 +154,15 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="saveStationButton">Salvar</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-secondary" id="fecharModal">Fechar</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <script type="module" src="index.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script defer src="index.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
     </div>
 </body>
 </html>
