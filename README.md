@@ -23,7 +23,7 @@ Com isso o servidor inicializará na porta http://0.0.0.0:8000/, no localhost do
 
 ## Notas
  
-1. No arquivo app.py está comentado na linha 92 a inicialização do Banco de Dados SQLite, pois, caso rode todas as vezes, irá limpar todas alterações feitas previamente. 
+1. No arquivo app.py está comentado na linha 82 a inicialização do Banco de Dados SQLite, pois, caso rode todas as vezes, irá limpar todas alterações feitas previamente. 
 
 ## Configurando o Ambiente Conda
 
