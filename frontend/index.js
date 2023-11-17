@@ -87,6 +87,8 @@ function showEditRideForm(rideId) {
 
         })
         .catch(error => console.error('Error fetching ride data:', error));
+    listStationInModal()
+
 }
 //função para exibir formulário de adição de passeios
 function showAddRideForm() {
@@ -95,6 +97,7 @@ function showAddRideForm() {
     resetRideForm();
     ISEDITING = false
     fecharModalRides()
+    listStationInModal()
 }
 
 function resetRideForm() {
@@ -361,53 +364,25 @@ function closeModal(modalId) {
     resetRideForm()
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const ridesAPI = 'http://localhost:8000/rides';
-    const stationAPI = 'http://localhost:8000/stations';
 
-    const rideStationStartSelect = document.getElementById('ride_station_start');
-    const rideStationEndSelect = document.getElementById('ride_station_end');
-
-    async function getStations() {
-        try {
-            const response = await fetch(stationAPI);
-            return await response.json();
-        } catch (error) {
-            return console.error('Erro ao obter estações:', error);
-        }
-    }
-
-    function populateStationDropdowns(stations) {
-        stations.forEach(station => {
-            const startOption = document.getElementById('ride_station_start');
-            startOption.value = station.rowid;
-            startOption.textContent = station.station;
-            rideStationStartSelect.appendChild(startOption);
-            const endOption = document.createElement('ride_station_end');
-            endOption.value = station.rowid;
-            endOption.textContent = station.station;
-            rideStationEndSelect.appendChild(endOption);
-        });
-    }
-
-    getStations().then(stations => {
-        populateStationDropdowns(stations);
-    });
-});
 
 function listStationInModal() {
     fetch(stationAPI)
         .then(response => response.json())
         .then(stations => {
+            const startSelect = document.getElementById('ride_station_start');
+            const endSelect = document.getElementById('ride_station_end');
+
             stations.forEach(station => {
-                const startOption = document.getElementById('ride_station_start');
-                startOption.value = station.rowid;
+                const startOption = document.createElement('option');
+                startOption.value = station.station;
                 startOption.textContent = station.station;
-                rideStationStartSelect.appendChild(startOption);
-                const endOption = document.createElement('ride_station_end');
-                endOption.value = station.rowid;
+                startSelect.appendChild(startOption);
+
+                const endOption = document.createElement('option');
+                endOption.value = station.station;
                 endOption.textContent = station.station;
-                rideStationEndSelect.appendChild(endOption);
+                endSelect.appendChild(endOption);
             });
         })
 }
