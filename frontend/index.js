@@ -59,7 +59,8 @@ function listRides() {
                 button.addEventListener('click', () => {
                     ISEDITING = true
                     fecharModalRides()
-                    showEditRideForm(button.getAttribute('data-id'))});
+                    showEditRideForm(button.getAttribute('data-id'))
+                });
             });
         })
         .catch(error => console.error('Erro ao obter passeios de bicicleta:', error));
@@ -134,7 +135,7 @@ function addRide() {
         time_start: newStartTime,
         time_end: newEndTime,
         station_start: newInitialStation,
-        station_end:newEndStation,
+        station_end: newEndStation,
         ride_duration: "10.2",
         ride_late: "false"
     }
@@ -152,7 +153,7 @@ function addRide() {
             time_start: newStartTime,
             time_end: newEndTime,
             station_start: newInitialStation,
-            station_end:newEndStation,
+            station_end: newEndStation,
             ride_duration: "10.2",
             ride_late: "false"
         })
@@ -189,7 +190,7 @@ function editRide() {
             time_start: newStartTime,
             time_end: newEndTime,
             station_start: newInitialStation,
-            station_end:newEndStation,
+            station_end: newEndStation,
             ride_duration: "10.2",
             ride_late: "false"
         })
@@ -227,7 +228,8 @@ function listStations() {
             editButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     ISEDITING = true
-                    showForm(button.getAttribute("data-id"))});
+                    showForm(button.getAttribute("data-id"))
+                });
             });
         })
         .catch(error => console.error('Erro ao obter estações:', error));
@@ -264,14 +266,14 @@ function editStation() {
 
     let j = {
         rowid: station_id,
-                station: station,
-                station_number: stationNumber,
-                station_name: stationName,
-                lat: lat,
-                lon: long,
+        station: station,
+        station_number: stationNumber,
+        station_name: stationName,
+        lat: lat,
+        lon: long,
     }
 
-//puxar os dados do backend para edição
+    //puxar os dados do backend para edição
     console.log(j);
     fetch(`${stationAPI}`, {
         method: "PUT",
@@ -280,26 +282,26 @@ function editStation() {
         },
         body: JSON.stringify(
             {
-                rowid:station_id,
+                rowid: station_id,
                 station: station,
                 station_number: stationNumber,
                 station_name: stationName,
                 lat: lat,
                 lon: long,
-            
-        })
+
+            })
     }).then(res => console.log(res)).then(() => listStations()).then(() => closeModal("stationModal"))
 }
 
 // monitora o clique do botão e chama as funções adicionar/editar passeio e estação 
 const btnRide = document.getElementById("saveRideButton")
-btnRide.addEventListener("click", function() {
+btnRide.addEventListener("click", function () {
     if (ISEDITING) editRide()
     else addRide()
 })
 
 const btn = document.getElementById("saveStationButton")
-btn.addEventListener("click", function() {
+btn.addEventListener("click", function () {
     if (ISEDITING) editStation()
     else addStation()
 })
@@ -321,7 +323,7 @@ function addStation() {
     const long = document.getElementById('long').value;
     const stationName = document.getElementById('station_name').value
 
-// Enviar dados ao backend
+    // Enviar dados ao backend
     fetch(stationAPI, {
         method: 'POST',
         headers: {
@@ -341,7 +343,7 @@ function addStation() {
             listStations();
         })
         .catch(error => console.error('Erro ao adicionar estação:', error));
-    
+
 }
 // redefine os valores dos campos de adicionar estação
 function resetform() {
@@ -357,4 +359,55 @@ function closeModal(modalId) {
     $(`#${modalId}`).hide();
     resetform()
     resetRideForm()
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const ridesAPI = 'http://localhost:8000/rides';
+    const stationAPI = 'http://localhost:8000/stations';
+
+    const rideStationStartSelect = document.getElementById('ride_station_start');
+    const rideStationEndSelect = document.getElementById('ride_station_end');
+
+    async function getStations() {
+        try {
+            const response = await fetch(stationAPI);
+            return await response.json();
+        } catch (error) {
+            return console.error('Erro ao obter estações:', error);
+        }
+    }
+
+    function populateStationDropdowns(stations) {
+        stations.forEach(station => {
+            const startOption = document.getElementById('ride_station_start');
+            startOption.value = station.rowid;
+            startOption.textContent = station.station;
+            rideStationStartSelect.appendChild(startOption);
+            const endOption = document.createElement('ride_station_end');
+            endOption.value = station.rowid;
+            endOption.textContent = station.station;
+            rideStationEndSelect.appendChild(endOption);
+        });
+    }
+
+    getStations().then(stations => {
+        populateStationDropdowns(stations);
+    });
+});
+
+function listStationInModal() {
+    fetch(stationAPI)
+        .then(response => response.json())
+        .then(stations => {
+            stations.forEach(station => {
+                const startOption = document.getElementById('ride_station_start');
+                startOption.value = station.rowid;
+                startOption.textContent = station.station;
+                rideStationStartSelect.appendChild(startOption);
+                const endOption = document.createElement('ride_station_end');
+                endOption.value = station.rowid;
+                endOption.textContent = station.station;
+                rideStationEndSelect.appendChild(endOption);
+            });
+        })
 }
