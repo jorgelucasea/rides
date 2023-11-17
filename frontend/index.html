@@ -6,26 +6,29 @@
     <title>Bicicletas Compartilhadas de Brasília</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        #table-wrapper {
-        position:relative;
+        .table-wrapper {
+            position: relative;
         }
-        #table-scroll {
-        height:550px;
-        overflow:auto;  
-        margin-top:20px;
-        margin-bottom: 20px;
-        }
-        #table-wrapper table {
-        width:100%;
 
+        .table-scroll {
+            height: 550px;
+            overflow: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .table-wrapper table {
+            width: 100%;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Bicicletas Compartilhadas de Brasília</h1>
-        <div id="table-wrapper">
-            <div id="table-scroll">
+
+        <!-- Tabela de Passeios -->
+        <div class="table-wrapper">
+            <div class="table-scroll">
                 <table id="rideTable" class="table">
                     <thead>
                         <tr>
@@ -35,108 +38,131 @@
                             <th>DIA DA VIAGEM</th>
                             <th>HORARIO DE INICIO</th>
                             <th>HORARIO DE FIM</th>
-        
+                            <th>AÇÕES</th>
                         </tr>
                     </thead>
                     <tbody id="rideTableBody">
-                        <!-- The table rows will be dynamically populated here -->
+                        <!-- As linhas da tabela serão populadas dinamicamente aqui -->
                     </tbody>
                 </table>
             </div>
         </div>
-        
+
         <button id="addRideButton" class="btn btn-primary">Adicionar passeio</button>
 
-        <div id="rideForm" style="display: none;">
-            <h2>Adicionar/Editar Passeio</h2>
-
-            <div class="form-group">
-                <input type="text" id="rideId" style="display: none;"/>
+        <!-- Modal para Adicionar/Editar Passeio -->
+        <div class="modal" id="rideModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Adicionar/Editar Passeio</h4>
+                        <button type="button" class="close" id="fecharModal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Conteúdo do modal para Adicionar/Editar Passeio -->
+                        <div class="form-group">
+                            <input type="text" id="rideId" style="display: none;"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="user_gender" class="form-control" placeholder="Digite seu gênero"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="user_birthdate" class="form-control" placeholder="Digite a sua data de nascimento" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="user_residence" class="form-control" placeholder="Digite seu estado de origem" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="ride_station_start" class="form-control" placeholder="Digite o nome da estação inicial" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="ride_station_end" class="form-control" placeholder="Digite o nome da estação final" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" id="rideDate" class="form-control" placeholder="Data do passeio" required>
+                        </div>
+                        <div class="form-group" style="display: none;">
+                            <input type="text" id="ride_late" class="form-control" placeholder="Data do passeio" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="ride_start_time" class="form-control" placeholder="Horário de início" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="ride_end_time" class="form-control" placeholder="Horário de fim" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="saveRideButton">Salvar</button>
+                        <button type="button" class="btn btn-secondary" id="fecharModal">Fechar</button>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Digite seu genêro" id="user_gender">
-            </div>          
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Digite sua data de nascimento" id="user_birthdate">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Digite o estado que você mora" id="user_residence">
-            </div>
-            <div class="form-group">
-                <input type="text" id="ride_duration" style="display: none;">
-            </div>
-            <div class="form-group">
-                <input type="text" id="ride_late" style="display: none;" placeholder="">
-            </div>
-            <div class="form-group">
-                <input type="text" id="ride_station_start" class="form-control" placeholder="Estação de ínicio" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="ride_station_end" class="form-control" placeholder="Estação final" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="rideDate" class="form-control" placeholder="Date" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="ride_start_time" class="form-control" placeholder="Horário de fim" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="ride_end_time" class="form-control" placeholder="Horário de ínicio" required>
-            </div>
-            <button id="saveRideButton" class="btn btn-primary">Salvar</button>
         </div>
 
+        <!-- Tabela de Estações -->
         <h2>Estações</h2>
-        <div id="table-wrapper">
-            <div id="table-scroll">
+        <div class="table-wrapper">
+            <div class="table-scroll">
                 <table id="stationTable" class="table">
                     <thead>
                         <tr>
                             <th>NOME DA ESTAÇÃO</th>
                             <th>NÚMERO DA ESTAÇÃO</th>
                             <th>LATITUDE</th>
-                            <th>LONGITUTE</th>
-        
+                            <th>LONGITUDE</th>
+                            <th>AÇÕES</th>
                         </tr>
                     </thead>
                     <tbody id="stationTableBody">
-                        <!-- The table rows will be dynamically populated here -->
+                        <!-- As linhas da tabela serão populadas dinamicamente aqui -->
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <div id="stationForm" style="display: none;">
-            <h2>Adicionar/Editar Estações</h2>
-    
-            <div class="form-group">
-                <input type="text" id="stationID" style="display: none;"/>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Digite o nome da estação" id="station">
-            </div>          
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Digite o número da estação" id="station_number">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Digite a localizaçao da estação" id="station_name">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Digite a latitude" id="lat">
-            </div> 
-            <div class="form-group">
-                <input type="text" id="long" class="form-control" placeholder="Digite a longitude" required>
-            </div>
-            <button id="saveStationButton" class="btn btn-primary">Salvar</button>
-        </div>
-
         <button id="addStationButton" class="btn btn-primary">Adicionar estação</button>
 
-    </div>
+        <!-- Modal para Adicionar/Editar Estações -->
+        <div class="modal" id="stationModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Adicionar/Editar Estações</h4>
+                        <button type="button" class="close" id="fecharModal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Conteúdo do modal para Adicionar/Editar Estações -->
+                        <div class="form-group">
+                            <input type="text" id="stationID" style="display: none;"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Digite o apelido da estação" id="station">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Digite o número da estação" id="station_number">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="station_name" placeholder="Digite o nome da estação"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Digite a latitude" id="lat">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="long" class="form-control" placeholder="Digite a longitude" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="saveStationButton">Salvar</button>
+                        <button type="button" class="btn btn-secondary" id="fecharModal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    
-    <script type="module" src="index.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script defer src="index.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
+    </div>
 </body>
 </html>

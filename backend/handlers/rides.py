@@ -24,8 +24,8 @@ class RideDataUpdate(BaseModel):
     time_end: str | None
     station_start: str 
     station_end: str 
-    ride_duration: str 
-    ride_late: str 
+    ride_duration: str | int | float
+    ride_late: str | bool
 
 def get_all_rides(conn: Connection):
     cursor = conn.cursor()
