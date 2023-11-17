@@ -5,27 +5,27 @@ from datetime import date, time
 class RideData(BaseModel):
     rowid: int
     user_gender: str | None
-    user_birthdate: date | None
+    user_birthdate: str | date | None
     user_residence: str | None
-    ride_date: date
+    ride_date: str | date
     time_start: str
     time_end: str | None
     station_start: str 
     station_end: str 
-    ride_duration: float 
-    ride_late: bool
+    ride_duration: float | str
+    ride_late: bool | str
 
 class RideDataUpdate(BaseModel):
     user_gender: str | None
-    user_birthdate: date | None
+    user_birthdate: str | None
     user_residence: str | None
     ride_date: str
     time_start: str
     time_end: str | None
     station_start: str 
     station_end: str 
-    ride_duration: float 
-    ride_late: bool 
+    ride_duration: str 
+    ride_late: str 
 
 def get_all_rides(conn: Connection):
     cursor = conn.cursor()
@@ -42,6 +42,8 @@ def get_ride_by_ID(conn: Connection, id_ride: int):
 
 def create_rides(conn: Connection, ride: RideDataUpdate):
     cursor = conn.cursor()
+
+    print(ride)
     
     cursor.execute("INSERT INTO rides (user_gender, user_birthdate, user_residence, ride_date, time_start, time_end, station_start, station_end, ride_duration, ride_late) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         (
