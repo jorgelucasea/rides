@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +23,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Bicicletas Compartilhadas de Brasília</h1>
@@ -36,8 +38,8 @@
                             <th>ESTAÇÃO INICIAL</th>
                             <th>ESTAÇÃO FINAL</th>
                             <th>DIA DA VIAGEM</th>
-                            <th>HORARIO DE INICIO</th>
-                            <th>HORARIO DE FIM</th>
+                            <th>HORÁRIO DE INÍCIO</th>
+                            <th>HORÁRIO DE FIM</th>
                             <th>AÇÕES</th>
                         </tr>
                     </thead>
@@ -52,54 +54,86 @@
 
         <!-- Modal para Adicionar/Editar Passeio -->
         <div class="modal" id="rideModal">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Adicionar/Editar Passeio</h4>
-                        <button type="button" class="close" id="fecharModal">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <!-- Conteúdo do modal para Adicionar/Editar Passeio -->
-                        <div class="form-group">
-                            <input type="text" id="rideId" style="display: none;"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="user_gender">Gênero:</label>
-                            <select id="user_gender" class="form-control">
-                                <option value="masculino">Masculino</option>
-                                <option value="feminino">Feminino</option>
-                                <option value="outro">Outro</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="date" id="user_birthdate" class="form-control" placeholder="Selecione a sua data de nascimento" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="user_residence" class="form-control" placeholder="Digite seu estado de origem" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="ride_station_start" class="form-control" placeholder="Digite o nome da estação inicial" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="ride_station_end" class="form-control" placeholder="Digite o nome da estação final" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="date" id="rideDate" class="form-control" placeholder="Data do passeio" required>
-                        </div>
-                        <div class="form-group" style="display: none;">
-                            <input type="date" id="ride_late" class="form-control" placeholder="Data do passeio" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="time" id="ride_start_time" class="form-control" placeholder="Horário de início" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="time" id="ride_end_time" class="form-control" placeholder="Horário de fim" required>
-                        </div>
+                        <form id="rideForm">
+                            <input type="text" id="rideId" style="display: none;" />
+                            <div class="form-group">
+                                <label for="user_gender">Gênero:</label>
+                                <select id="user_gender" class="form-control">
+                                    <option value="masculino">Masculino</option>
+                                    <option value="feminino">Feminino</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_birthdate">Data de Nascimento:</label>
+                                <input type="date" id="user_birthdate" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_residence">Estado de Origem:</label>
+                                <select id="user_residence" class="form-control" required>
+                                    <option value="" disabled selected>Selecione seu estado</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ride_station_start">Estação Inicial:</label>
+                                <input type="text" id="ride_station_start" class="form-control" placeholder="Digite o nome da estação inicial" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ride_station_end">Estação Final:</label>
+                                <input type="text" id="ride_station_end" class="form-control" placeholder="Digite o nome da estação final" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="rideDate">Data do Passeio:</label>
+                                <input type="date" id="rideDate" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ride_start_time">Hora inicical do passeio:</label>
+                                <input type="time" id="ride_start_time" class="form-control" placeholder="Horário de início" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ride_end_time">Hora final do passeio:</label>
+                                <input type="time" id="ride_end_time" class="form-control" placeholder="Horário de fim" required>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="saveRideButton">Salvar</button>
-                        <button type="button" class="btn btn-secondary" id="fecharModal">Fechar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                     </div>
                 </div>
             </div>
@@ -130,36 +164,36 @@
 
         <!-- Modal para Adicionar/Editar Estações -->
         <div class="modal" id="stationModal">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Adicionar/Editar Estações</h4>
-                        <button type="button" class="close" id="fecharModal">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <!-- Conteúdo do modal para Adicionar/Editar Estações -->
-                        <div class="form-group">
-                            <input type="text" id="stationID" style="display: none;"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Digite o apelido da estação" id="station">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Digite o número da estação" id="station_number">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="station_name" placeholder="Digite o nome da estação"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Digite a latitude" id="lat">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="long" class="form-control" placeholder="Digite a longitude" required>
-                        </div>
+                        <form id="stationForm">
+                            <input type="text" id="stationID" style="display: none;" />
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Digite o apelido da estação" id="station">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Digite o número da estação" id="station_number">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="station_name" placeholder="Digite o nome da estação" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Digite a latitude" id="lat">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="long" class="form-control" placeholder="Digite a longitude" required>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="saveStationButton">Salvar</button>
-                        <button type="button" class="btn btn-secondary" id="fecharModal">Fechar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                     </div>
                 </div>
             </div>
@@ -170,4 +204,5 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
     </div>
 </body>
+
 </html>
