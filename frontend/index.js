@@ -1,3 +1,4 @@
+//URLs das APIs para rides e stations
 const ridesAPI = 'http://localhost:8000/rides';
 const stationAPI = 'http://localhost:8000/stations';
 
@@ -8,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('addStationButton').addEventListener('click', showAddStationForm);
 })
 // Pego o botão para adicionar um evento click que quando chamado edit algum ride.
+
+// Variáveis globais para armazenar o ID da estação, status de edição e o ID do passeio
 let station_id;
 let ISEDITING = true;
 let ride_id;
@@ -61,6 +64,7 @@ function listRides() {
         .catch(error => console.error('Erro ao obter passeios de bicicleta:', error));
 }
 
+//função para exibir formulário de edição de passeios
 function showEditRideForm(rideId) {
     const rideForm = document.getElementById('rideModal');
     rideForm.style.display = 'block';
@@ -79,7 +83,7 @@ function showEditRideForm(rideId) {
         })
         .catch(error => console.error('Error fetching ride data:', error));
 }
-
+//função para exibir formulário de adição de passeios
 function showAddRideForm() {
     const rideForm = document.getElementById('rideModal');
     rideForm.style.display = 'block';
@@ -157,6 +161,7 @@ function addRide() {
         .catch(error => console.error('Erro ao adicionar passeio de bicicleta:', error));
 }
 
+//função para editar passeio 
 function editRide() {
     const gender = document.getElementById('user_gender').value;
     const newInitialStation = document.getElementById('ride_station_start').value;
@@ -193,6 +198,7 @@ function editRide() {
         .catch(error => console.error('Erro ao editar passeio de bicicleta:', error));
 }
 
+//função para listar estações
 function listStations() {
     fetch(stationAPI)
         .then(response => response.json())
@@ -244,6 +250,7 @@ function listEditStation(station_id) {
         })
 }
 
+//função para editar estação
 function editStation() {
     const station = document.getElementById('station').value;
     const stationNumber = document.getElementById('station_number').value;
@@ -260,6 +267,7 @@ function editStation() {
                 lon: long,
     }
 
+//puxar os dados do backend para edição
     console.log(j);
     fetch(`${stationAPI}`, {
         method: "PUT",
@@ -279,6 +287,7 @@ function editStation() {
     }).then(res => console.log(res)).then(() => listStations()).then(() => closeModal("stationModal"))
 }
 
+// monitora o clique do botão e chama as funções adicionar/editar passeio e estação 
 const btnRide = document.getElementById("saveRideButton")
 btnRide.addEventListener("click", function() {
     if (ISEDITING) editRide()
@@ -299,6 +308,7 @@ function showAddStationForm() {
     fecharModalStation()
 }
 
+// Função para adicionar uma estação
 function addStation() {
     ISEDITING = false
     const station = document.getElementById('station').value;
@@ -307,7 +317,7 @@ function addStation() {
     const long = document.getElementById('long').value;
     const stationName = document.getElementById('station_name').value
 
-
+// Enviar dados ao backend
     fetch(stationAPI, {
         method: 'POST',
         headers: {
@@ -327,9 +337,9 @@ function addStation() {
             listStations();
         })
         .catch(error => console.error('Erro ao adicionar estação:', error));
-    // Enviar dados ao backend
+    
 }
-
+// redefine os valores dos campos de adicionar estação
 function resetform() {
     document.getElementById('station').value = ""
     document.getElementById('station_number').value = ""
@@ -338,6 +348,7 @@ function resetform() {
     document.getElementById('station_name').value = "";
 }
 
+//função para fechar modal 
 function closeModal(modalId) {
     $(`#${modalId}`).hide();
     resetform()

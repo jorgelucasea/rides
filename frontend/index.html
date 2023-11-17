@@ -64,10 +64,15 @@
                             <input type="text" id="rideId" style="display: none;"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="user_gender" class="form-control" placeholder="Digite seu gênero"/>
+                            <label for="user_gender">Gênero:</label>
+                            <select id="user_gender" class="form-control">
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                                <option value="outro">Outro</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="user_birthdate" class="form-control" placeholder="Digite a sua data de nascimento" required>
+                            <input type="date" id="user_birthdate" class="form-control" placeholder="Selecione a sua data de nascimento" required>
                         </div>
                         <div class="form-group">
                             <input type="text" id="user_residence" class="form-control" placeholder="Digite seu estado de origem" required>
@@ -80,16 +85,16 @@
                         </div>
                         
                         <div class="form-group">
-                            <input type="text" id="rideDate" class="form-control" placeholder="Data do passeio" required>
+                            <input type="date" id="rideDate" class="form-control" placeholder="Data do passeio" required>
                         </div>
                         <div class="form-group" style="display: none;">
-                            <input type="text" id="ride_late" class="form-control" placeholder="Data do passeio" required>
+                            <input type="date" id="ride_late" class="form-control" placeholder="Data do passeio" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="ride_start_time" class="form-control" placeholder="Horário de início" required>
+                            <input type="time" id="ride_start_time" class="form-control" placeholder="Horário de início" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="ride_end_time" class="form-control" placeholder="Horário de fim" required>
+                            <input type="time" id="ride_end_time" class="form-control" placeholder="Horário de fim" required>
                         </div>
                     </div>
                     <div class="modal-footer">
