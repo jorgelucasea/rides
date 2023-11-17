@@ -231,6 +231,7 @@ function showForm(station_id_param) {
 }
 
 function listEditStation(station_id) {
+    fecharModalStation()
     ISEDITING = true
     fetch(`${stationAPI}/${station_id}`)
         .then(res => res.json())
