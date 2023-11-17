@@ -58,6 +58,7 @@ function listRides() {
             editButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     ISEDITING = true
+                    fecharModalRides()
                     showEditRideForm(button.getAttribute('data-id'))});
             });
         })
@@ -80,6 +81,9 @@ function showEditRideForm(rideId) {
             document.getElementById('rideDate').value = ride.ride_date;
             document.getElementById('ride_start_time').value = ride.time_start;
             document.getElementById('ride_end_time').value = ride.time_end;
+            document.getElementById('user_residence').value = ride.user_residence;
+            document.getElementById('user_birthdate').value = ride.user_birthdate;
+
         })
         .catch(error => console.error('Error fetching ride data:', error));
 }
